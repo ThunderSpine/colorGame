@@ -40,7 +40,7 @@ let randomColor = () => {
 	let r = Math.floor(Math.random()*256)
 	let g = Math.floor(Math.random()*256)
 	let b =	Math.floor(Math.random()*256)
-	let rgb = `rgb(${r}, ${g}, ${b}) `
+	let rgb = `rgb(${r}, ${g}, ${b})`
 	return rgb
 }
 //Generar un arreglo de colores con el número especificado de items.
@@ -61,12 +61,14 @@ let changeColors = (colr) => {
 colors = generateRandomColors(6)
 colorizer()
 pickColor()
+document.querySelector('#colorDisplay').textContent = pickedColor
 
 //Game engine.
 let msg = document.querySelector('#message');
 for (let i = 0; i < squares.length; i++) {
 	squares[i].addEventListener('click', function(){
 		let clickedColor = this.style.backgroundColor;
+		console.log(this.style.backgroundColor) //toDo	Quitar esta linea al terminar
 		if (clickedColor === pickedColor) {
 			msg.textContent = 'Success!';
 			document.querySelector('h1').style.backgroundColor = clickedColor;
@@ -77,7 +79,6 @@ for (let i = 0; i < squares.length; i++) {
 		}
 	})
 }
-document.querySelector('#colorDisplay').textContent = pickedColor
 
 //Ahora vamos a asignarle a cada cuadrado uno de esos colores. Seleccioná todos los cuadrados usando querySelectorAll y recorrelos usando un for loop. En cada vuelta del loop asignale un color del arreglo colors. (Aprovechá la variable i, no solo para acceder al cuadrado específico, sino también al color.). Fijate si tus 6 cuadrados tienen los 6 colores que pusiste en el arreglo colors.
 //Nota sobre selectores: recomendamos que a partir de ahora cada vez que seleccionemos un elemento utilicemos una variable para guardarlo, ya que seguramente lo usemos varias veces, y es mas fácil por ejemplo utilizar la variable square, que escribir siempre document.querySelectorAll(".square")
