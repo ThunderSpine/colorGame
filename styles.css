@@ -1,3 +1,7 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
 body{
   background-color: #232323
 }
@@ -16,6 +20,14 @@ h1{
   width: 600px;
   margin: 0 auto;
 }
+.selected{
+  background-color: #4682b4
+}
 #message{
-  color: #fff;
+  color: rgb(26, 26, 26);
+}
+#stripe{
+  background-color: #fff;
+  height: 30px;
+  text-align: center;
 }
