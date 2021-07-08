@@ -5,15 +5,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="styles.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
   <title>Color Game Prototype</title>
 </head>
 <body>
-	<h1>The Great <span id="colorDisplay"></span> Guessing Game</h1>
+	<h1>The Great <br> <span id="colorDisplay"></span> <br> Guessing Game</h1>
 	<div id="stripe">
+		<button id="reset" class="button">New Colors</button>
 		<span id="message"></span>
-		<button id="reset">New Colors</button>
-		<button id="easy">Easy</button>
-		<button id="hard" class="selected">Hard</button>
+		<div id="mode">
+			<button id="easy" class="button">Easy</button>
+			<button id="hard" class="selected button">Hard</button>
+		</div>
 	</div>
 	<div class="container">
 		<div class="square"></div>

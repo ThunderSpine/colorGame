@@ -1,33 +1,72 @@
 *{
-  margin: 0px;
-  padding: 0px;
+	margin: 0px;
+	padding: 0px;
 }
 body{
-  background-color: #232323
+	background-color: #232323;
 }
 h1{
-  color: #fff;
+	color: #fff;
+	margin: 0 auto;
+	font-weight: normal;
+	text-align: center;
+	text-transform: uppercase;
+	transition: background 0.7s;
+	/* Background color en scripts */
 }
 .square{
-  float: left;
-  width: 30%;
-  height: 0px;
-  padding-bottom: 30%;
-  margin: 1%;
-  background-color: #232323;
+	float: left;
+	width: 30%;
+	height: 0px;
+	padding-bottom: 30%;
+	margin: 0.5vw;
+	border-radius: 20px;
+	background-color: #232323;
+	transition: background 0.5s;
 }
 .container{
-  width: 600px;
-  margin: 0 auto;
+	max-width: 600px;
+	padding-top: 2.5vh;
+	margin: 0 auto;
+}
+.button{
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #4682b4;
+	height: 100%;
+	border: none;
+	outline: none;
+	font-size: 110%;
+	background-color:#fff;
+	text-transform: uppercase;
+	font-family: 'Montserrat', sans-serif;
+	transition: background 0.35s;
 }
 .selected{
-  background-color: #4682b4
+	color: #fff;
+	background-color: #4682b4;
+}
+
+button:hover {
+	color: #fff;
+	cursor: pointer;
+	background-color: #4682b4;
 }
 #message{
-  color: rgb(26, 26, 26);
+	text-align: center;
+	height: 50%;
+	width: 20%;
 }
 #stripe{
-  background-color: #fff;
-  height: 30px;
-  text-align: center;
+	display: flex;
+	justify-content: center;
+	background-color: #fff;
+	height: 30px;
+	align-items: center;
+}
+#colorDisplay{
+	font-size: 200%;
+}
+#mode{
+	height:100%;
 }

@@ -8,14 +8,27 @@ const hardBtn = document.querySelector('#hard')
 const resetBtn = document.querySelector("#reset");
 const squares = document.querySelectorAll('.square');
 const colorDisplay = document.querySelector('#colorDisplay');
-let difficulty = hardMode;
-let colors = new Array;
 let pickedColor = new String;
+let numberOfSquares = hardMode;
+let colors = new Array;
+//Posibilidad de cambiar de dificultad
+let numberOfSquaresChanges = () => {
+	easyBtn.addEventListener('click', () => {
+		hardBtn.classList.remove('selected')
+		easyBtn.classList.add('selected')
+		gameStart()
+	})
+	hardBtn.addEventListener('click', () => {
+		easyBtn.classList.remove('selected')
+		hardBtn.classList.add('selected')
+		gameStart()
+	})
+}
 //Asignar colores a los cuadrados.
-let colorizer = () => {
+let colorizer = (colorSetting) => {
 	for(let i = 0; i < squares.length; i++) {
 		if (colors[i]) {
-			squares[i].style.backgroundColor = colors[i]
+			squares[i].style.backgroundColor = colorSetting? colorSetting : colors[i]
 		} else {
 			squares[i].style.backgroundColor = defaultColor;
 		}
@@ -44,64 +57,45 @@ let generateRandomColors = (numOfColors) => {
 	colors = randColor;
 	return colors
 };
-//
-let changeColors = (winnerColor) => {
-	for (let i = 0; i < squares.length; i++) {
-		squares[i].style.backgroundColor = winnerColor
-	}
-};
-let init = (difficulty) =>{
-	resetBtn.addEventListener("click", () => {gameStart(difficulty)});
+let init = (numberOfSquares) =>{
+	msg.textContent = '';
+	numberOfSquaresChanges()
+	resetBtn.addEventListener("click", () => {gameStart(numberOfSquares)});
 	title.style.backgroundColor="#4682b4"
 	resetBtn.textContent = 'New Colors';
-	generateRandomColors(difficulty);
+	generateRandomColors(numberOfSquares);
 	colorizer();
-	pickColor(difficulty);
+	pickColor(numberOfSquares);
 	colorDisplay.textContent = pickedColor;
+}
+let evaluation = (clickedColor, targetSquare) => {
+	if (clickedColor === pickedColor) {
+		msg.textContent = 'Success!';
+		title.style.backgroundColor = clickedColor;
+		colorizer(clickedColor);
+		resetBtn.textContent = 'Play Again?'
+	} else {
+		msg.textContent = 'Try Again';
+		targetSquare.style.backgroundColor = defaultColor;
+	}
 }
 //Game engine.
 let gameStart = () =>{
 		//Initializing
 	easyBtn.classList.contains('selected')
-		? difficulty = easyMode
-		: difficulty = hardMode;
-	init(difficulty)
+		? numberOfSquares = easyMode
+		: numberOfSquares = hardMode;
+	init(numberOfSquares)
 		//Core
 	for (let i = 0; i < squares.length; i++) {
 		squares[i].addEventListener('click', function () {
 			let clickedColor = this.style.backgroundColor;
-			if (clickedColor === pickedColor) {
-				msg.textContent = 'Success!';
-				title.style.backgroundColor = clickedColor;
-				changeColors(clickedColor);
-				resetBtn.textContent = 'Play Again?'
-			} else {
-				msg.textContent = 'Try Again';
-				squares[i].style.backgroundColor = defaultColor;
-			}
+			evaluation(clickedColor, squares[i])
 		});
 	}
 };
 gameStart();
 
-easyBtn.addEventListener('click', () => {
-	hardBtn.classList.remove('selected')
-	easyBtn.classList.add('selected')
-	gameStart()
-})
-hardBtn.addEventListener('click', () => {
-	easyBtn.classList.remove('selected')
-	hardBtn.classList.add('selected')
-	gameStart()
-})
-
-
-//Ahora lo que haremos es a los primeros tres cuadrados le asignaremos los tres colores el arreglo , y para los otros 3 vamos a esconderlos. Para eso vamos a loopear sobre todos los cuadrados, y hacer una condicional dentro del loop que se fije que si para el índice en el que estamos hay un elemento definido en el arreglo colors, que sería un string con nuestro color, recordemos que un string es verdadero, le asigne el color a nuestro cuadrado, sino, osea que no hay ningún elemento en ese índice y por lo tanto nos devuelve undefined, que en si ya es falso, le cambie la propiedad css display del cuadrado a none, para que este se esconda. Fijémonos que cuando clickeamos easy los tres primeros cuadrados cambien de color, y los otros tres se escondan.
-//Enfoquémonos en el botón hard. Otra vez tenemos que generar nuevos colores (que esta vez vuelven a ser 6), elegir un color ganador y mostrar en el título cual es el color ganador. Como vemos nuestro código se empieza a repetir bastante, no te preocupes ya vamos a volver para atrás y refactorear un poco.
-//Ahora loopiemos a todos los cuadrados y asignémosle a todos un color del arreglo. Para poder volver a mostrar los cuadrados escondidos vamos a tener que darle a los cuadrados el valor block a la propiedad css display.Fíjate si después de ir a easy y volver a hard vuelven a aparecer los cuadrados escondidos y aparecen nuevos colores, también fijate si el juego sigue funcionando correctamente en ambos modos.
-//En este momento estamos teniendo un bug en nuestro juego, que es que cuando estoy en easy mode y clickeo #reset este va a generar 6 nuevos colores en el arreglo que no se van a mostrar en pantalla. Para solucionar este problema vamos a crear una variable numberOfSquares que trackee con cuantos cuadrados se está jugando en ese momento. La variable iniciará siendo 6. Cuando hagamos click en easy cambiará a 3, y cuando hagamos click en hard volverá a 6. Ahora cada vez que ejecutemos generateNumberColors ya no pasaremos el número hard codeado como argumento sino que pasaremos la variable numberOfSquares. Ahora fijate si solucionamos el bug fijándonos en la consola si cuando estamos en easy mode y clickeamos new colors el arreglo de colors tiene 3 o 6 elementos.
-
-//Ahora nuestro juego ya esta funcionando! Vayamos a darle un estilo mas atractivo, aquí tienes dos caminos posibles, o seguir el maqueteado del ejemplo, o crear tu propia version. Si elijes hacer tu propia versión, tienes q respetar lo siguiente:
 
 //Los botones de new colors, easy y hard, no deberían parecer botones clásicos, igual que en el ejemplo. Y no deberían tener una linea azul alrededor si lo clickeamos(outline).
 //El mensaje de correct y try again no tienen que mover los otros elementos cuando aparecen.
