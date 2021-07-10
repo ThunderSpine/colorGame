@@ -11,8 +11,10 @@ const colorDisplay = document.querySelector('#colorDisplay');
 let pickedColor = new String;
 let numberOfSquares = hardMode;
 let colors = new Array;
+
+document.body.addEventListener('keydown' , (e) => {if(e.keyCode===32){gameStart()}})
 //Posibilidad de cambiar de dificultad
-let numberOfSquaresChanges = () => {
+let difficultyChange = () => {
 	easyBtn.addEventListener('click', () => {
 		hardBtn.classList.remove('selected')
 		easyBtn.classList.add('selected')
@@ -23,7 +25,8 @@ let numberOfSquaresChanges = () => {
 		hardBtn.classList.add('selected')
 		gameStart()
 	})
-}
+};
+
 //Asignar colores a los cuadrados.
 let colorizer = (colorSetting) => {
 	for(let i = 0; i < squares.length; i++) {
@@ -33,41 +36,51 @@ let colorizer = (colorSetting) => {
 			squares[i].style.backgroundColor = defaultColor;
 		}
 	}
-}
+};
+
 //Elegir un color del arreglo de colores.
 let pickColor = (numOfColors) => {
 	let randNum = Math.floor(Math.random()*numOfColors);
+
 	pickedColor = colors[randNum]
 	return pickedColor
-}
+};
+
 //Generar un color random
 let randomColor = () => {
 	let r = Math.floor(Math.random()*256)
 	let g = Math.floor(Math.random()*256)
 	let b =	Math.floor(Math.random()*256)
 	let rgb = `rgb(${r}, ${g}, ${b})`
+	
 	return rgb
-}
+};
+
 //Generar un arreglo de colores con el número especificado de items.
 let generateRandomColors = (numOfColors) => {
 	let randColor = new Array;
+
 	for (let i = 0; i < numOfColors; i++) {
 		randColor.push(randomColor());
 	}
 	colors = randColor;
 	return colors
 };
+
+//Arranque del juego.
 let init = (numberOfSquares) =>{
-	msg.textContent = '';
-	numberOfSquaresChanges()
-	resetBtn.addEventListener("click", () => {gameStart(numberOfSquares)});
-	title.style.backgroundColor="#4682b4"
-	resetBtn.textContent = 'New Colors';
+	difficultyChange()
 	generateRandomColors(numberOfSquares);
 	colorizer();
 	pickColor(numberOfSquares);
+	msg.textContent = '';
+	resetBtn.addEventListener("click", () => {gameStart(numberOfSquares)});
+	title.style.backgroundColor="#4682b4"
+	resetBtn.textContent = 'New Colors';
 	colorDisplay.textContent = pickedColor;
-}
+};
+
+//Evaluación de la elección del jugador.
 let evaluation = (clickedColor, targetSquare) => {
 	if (clickedColor === pickedColor) {
 		msg.textContent = 'Success!';
@@ -78,7 +91,8 @@ let evaluation = (clickedColor, targetSquare) => {
 		msg.textContent = 'Try Again';
 		targetSquare.style.backgroundColor = defaultColor;
 	}
-}
+};
+
 //Game engine.
 let gameStart = () =>{
 		//Initializing
@@ -86,6 +100,7 @@ let gameStart = () =>{
 		? numberOfSquares = easyMode
 		: numberOfSquares = hardMode;
 	init(numberOfSquares)
+
 		//Core
 	for (let i = 0; i < squares.length; i++) {
 		squares[i].addEventListener('click', function () {
@@ -94,6 +109,8 @@ let gameStart = () =>{
 		});
 	}
 };
+
+//Corriendo el código.
 gameStart();
 
 

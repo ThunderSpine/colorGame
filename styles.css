@@ -12,7 +12,25 @@ h1{
 	text-align: center;
 	text-transform: uppercase;
 	transition: background 0.7s;
-	/* Background color en scripts */
+	/* Background color in scripts */
+}
+button{
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #4682b4;
+	height: 100%;
+	border: none;	
+	outline: none;
+	font-size: 110%;
+	background-color:#fff;
+	text-transform: uppercase;
+	font-family: 'Montserrat', sans-serif;
+	transition: background 0.35s;
+}
+button:hover {
+	color: #fff;
+	cursor: pointer;
+	background-color: #4682b4;
 }
 .square{
 	float: left;
@@ -22,36 +40,22 @@ h1{
 	margin: 0.5vw;
 	border-radius: 20px;
 	background-color: #232323;
-	transition: background 0.5s;
+	transition: background 0.5s, opacity 0.7s;
+}
+.square:hover{
+	cursor: pointer;
+	opacity: 0.8;
 }
 .container{
 	max-width: 600px;
 	padding-top: 2.5vh;
 	margin: 0 auto;
 }
-.button{
-	padding-right: 5px;
-	padding-left: 5px;
-	color: #4682b4;
-	height: 100%;
-	border: none;
-	outline: none;
-	font-size: 110%;
-	background-color:#fff;
-	text-transform: uppercase;
-	font-family: 'Montserrat', sans-serif;
-	transition: background 0.35s;
-}
 .selected{
 	color: #fff;
 	background-color: #4682b4;
 }
 
-button:hover {
-	color: #fff;
-	cursor: pointer;
-	background-color: #4682b4;
-}
 #message{
 	text-align: center;
 	height: 50%;
